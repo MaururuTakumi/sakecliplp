@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickClip | 日本酒D2Cプラットフォーム ご提案資料</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+JP:wght@300;400;600;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+        
+        /* CSS Variables for consistent design system */
+        :root {
+            --primary-navy: #1a237e;
+            --primary-navy-dark: #0d1854;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f4e5c2;
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6c7d;
+            --text-light: #8b9cb0;
+            --bg-light: #fafbfc;
+            --bg-wash: #f9f9f7;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-xl: 0 16px 48px rgba(0,0,0,0.12);
+            --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        ::selection {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.7;
+            background-color: var(--bg-wash);
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Premium Washi Texture Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,.03) 50px, rgba(255,255,255,.03) 100px),
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,.02) 50px, rgba(255,255,255,.02) 100px),
+                radial-gradient(ellipse at top, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Premium Header with Parallax Effect */
+        header {
+            position: relative;
+            min-height: 80vh;
+            background-image: url('images/header_bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        /* Gradient Overlay with Animation */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(26,35,126,0.90) 0%, 
+                rgba(57,73,171,0.82) 50%,
+                rgba(13,24,84,0.88) 100%);
+            z-index: 1;
+            animation: gradientShift 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { opacity: 0.90; }
+            100% { opacity: 0.82; }
+        }
+        
+        /* Decorative Pattern Overlay */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(212,175,55,0.03) 100px, rgba(212,175,55,0.03) 200px);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        /* Premium Header Logo Styles */
+        .header-logo-left {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            animation: fadeInLeft 1s ease-out 0.5s backwards;
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .quickclip-logo-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            transition: var(--transition-base);
+            cursor: default;
+        }
+        
+        .quickclip-logo-text:hover {
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+        
+        /* Enhanced Honkoma Logo */
+        .header-logo-right {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 4;
+            animation: fadeInRight 1s ease-out 0.5s backwards;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .logo-honkoma {
+            height: 60px;
+            width: auto;
+            max-width: 200px;
+            background: rgba(255,255,255,0.95);
+            padding: 10px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: var(--transition-base);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .logo-honkoma:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            background: rgba(255,255,255,1);
+        }
+        
+        /* Header Content with Animation */
+        .header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 120px 40px 80px;
+            color: white;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out 0.7s backwards;
+        }
+        
+        /* Premium Typography */
+        h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 30px;
+            letter-spacing: 0.08em;
+            line-height: 1.3;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        /* Accent Line Animation */
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            animation: expandWidth 1.5s ease-out 1.2s backwards;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+        
+        header p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(255,255,255,0.95);
+            font-weight: 400;
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: 0.05em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content with Better Spacing */
+        .main-content {
+            padding: 100px 0;
+        }
+        
+        /* Section Container for Consistent Spacing */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        /* Enhanced Section Styles */
+        section {
+            margin-bottom: 120px;
+            position: relative;
+        }
+        
+        /* Premium Heading Styles */
+        h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(28px, 3.5vw, 38px);
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 50px;
+            position: relative;
+            padding-left: 35px;
+            letter-spacing: 0.06em;
+        }
+        
+        /* Enhanced Accent Bar */
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(212,175,55,0.3);
+        }
+        
+        /* Section Lead Text */
+        .section-lead {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Problem Section - Premium Cards */
+        .problem-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .problem-box {
+            background: linear-gradient(135deg, #fcfcfc 0%, #f8f9fa 100%);
+            padding: 40px 35px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-gold);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            cursor: default;
+        }
+        
+        .problem-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            transform: translate(30px, -30px);
+            transition: var(--transition-smooth);
+        }
+        
+        .problem-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%);
+        }
+        
+        .problem-box:hover::before {
+            transform: translate(20px, -20px) scale(1.2);
+        }
+        
+        .problem-box h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            letter-spacing: 0.03em;
+        }
+        
+        .problem-box p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Payment Demo Section */
+        .payment-demo-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+            padding: 80px;
+            border-radius: 24px;
+            margin: 80px 0;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .payment-demo-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            animation: floatCircle 8s ease-in-out infinite;
+        }
+        
+        @keyframes floatCircle {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, -30px) scale(1.1); }
+        }
+        
+        .payment-demo-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-text h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 36px;
+            color: var(--primary-navy);
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+        
+        .demo-text p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 35px;
+            letter-spacing: 0.02em;
+        }
+        
+        .demo-features {
+            list-style: none;
+            padding: 0;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .demo-features li {
+            font-size: 16px;
+            color: var(--text-primary);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-base);
+            font-weight: 500;
+        }
+        
+        .demo-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-features li:hover {
+            padding-left: 15px;
+            color: var(--primary-navy);
+        }
+        
+        .demo-phone {
+            position: relative;
+            animation: floatPhone 4s ease-in-out infinite;
+            text-align: center;
+        }
+        
+        @keyframes floatPhone {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        
+        .phone-mockup {
+            width: 100%;
+            height: auto;
+            max-width: 350px;
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.2));
+            border-radius: 35px;
+            transition: var(--transition-smooth);
+        }
+        
+        .phone-mockup:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 35px 70px rgba(0,0,0,0.25));
+        }
+        
+        /* Solution Section - Enhanced Flow */
+        .solution-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        /* Connection Lines */
+        .solution-flow::before {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: linear-gradient(to right, transparent 0%, var(--accent-gold-light) 50%, transparent 100%);
+            z-index: 0;
+        }
+        
+        .solution-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: white;
+            padding: 35px 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-smooth);
+        }
+        
+        .solution-step:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Step Number Badge */
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+        }
+        
+        .solution-step img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            background: var(--bg-light);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .solution-step:hover img {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .solution-step h3 {
+            font-size: 18px;
+            color: var(--primary-navy);
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        
+        .solution-step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Benefits Section - Premium Design */
+        .benefit-items {
+            display: grid;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .benefit-item {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-navy);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        
+        /* Hover Effect with Gradient */
+        .benefit-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.05) 50%, transparent 100%);
+            transition: left 0.6s ease;
+        }
+        
+        .benefit-item:hover {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transform: translateX(8px);
+        }
+        
+        .benefit-item:hover::before {
+            left: 100%;
+        }
+        
+        .benefit-item h4 {
+            font-size: 20px;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.02em;
+        }
+        
+        .benefit-item h4::before {
+            content: '';
+            width: 28px;
+            height: 28px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .benefit-item h4::after {
+            content: '✓';
+            position: absolute;
+            left: 15px;
+            color: var(--primary-navy);
+            font-weight: 900;
+            font-size: 16px;
+        }
+        
+        .benefit-item p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-left: 43px;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Premium Footer Design */
+        footer {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-navy-dark) 100%);
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated Background Pattern */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212,175,55,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212,175,55,0.08) 0%, transparent 50%);
+            animation: floatPattern 20s ease-in-out infinite;
+        }
+        
+        @keyframes floatPattern {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, -20px) scale(1.1); }
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        footer h2 {
+            color: white;
+            font-size: clamp(28px, 3vw, 36px);
+            margin-bottom: 25px;
+            padding-left: 0;
+            text-align: center;
+            letter-spacing: 0.06em;
+        }
+        
+        footer h2::before {
+            display: none;
+        }
+        
+        .footer-lead {
+            font-size: 17px;
+            margin-bottom: 50px;
+            text-align: center;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Premium Contact Form */
+        .contact-form-section {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Form Decoration */
+        .contact-form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold) 0%, var(--accent-gold-light) 50%, var(--accent-gold) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .contact-form-section h3 {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--primary-navy);
+            font-size: 24px;
+            margin-bottom: 35px;
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            letter-spacing: 0.02em;
+            transition: var(--transition-base);
+        }
+        
+        .required {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition-base);
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #fafbfc;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-navy);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(26,35,126,0.1);
+        }
+        
+        /* Floating Label Effect */
+        .form-group input:focus + label,
+        .form-group textarea:focus + label {
+            color: var(--primary-navy);
+        }
+        
+        /* Premium Submit Button */
+        .submit-button {
+            width: 280px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #e6c757 100%);
+            color: var(--primary-navy);
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: block;
+            margin: 40px auto 0;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.05em;
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+        
+        .submit-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .submit-button:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Contact Info with Better Styling */
+        .contact-info {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 30px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .contact-info p {
+            font-size: 15px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            letter-spacing: 0.02em;
+        }
+        
+        .contact-info a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: var(--transition-base);
+        }
+        
+        .contact-info a:hover {
+            color: var(--accent-gold-light);
+            text-decoration: underline;
+        }
+        
+        /* Enhanced Responsive Design */
+        /* Large Screens (1440px+) */
+        @media screen and (min-width: 1440px) {
+            .container {
+                max-width: 1600px;
+            }
+            
+            .section-container {
+                max-width: 1400px;
+            }
+            
+            .problem-boxes {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+            
+            .payment-demo-content {
+                grid-template-columns: 1fr 450px;
+                gap: 100px;
+            }
+            
+            .solution-flow {
+                gap: 60px;
+            }
+            
+            .benefit-items {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+        }
+        
+        /* Desktop (1024px - 1439px) */
+        @media screen and (max-width: 1439px) {
+            .section-container {
+                max-width: 1100px;
+            }
+            
+            .payment-demo-section {
+                padding: 60px;
+            }
+            
+            .payment-demo-content {
+                gap: 60px;
+            }
+        }
+        
+        /* Tablet (768px - 1023px) */
+        @media screen and (max-width: 1023px) {
+            header {
+                min-height: 60vh;
+                background-attachment: scroll;
+            }
+            
+            .header-content {
+                padding: 100px 30px 60px;
+            }
+            
+            .main-content {
+                padding: 80px 0;
+            }
+            
+            .section-container {
+                padding: 0 30px;
+            }
+            
+            section {
+                margin-bottom: 80px;
+            }
+            
+            .payment-demo-section {
+                padding: 50px 40px;
+                margin: 60px 0;
+            }
+            
+            .payment-demo-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 50px;
+            }
+            
+            .demo-phone {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .solution-flow {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .solution-flow::before {
+                display: none;
+            }
+            
+            .benefit-items {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile (767px and below) */
+        @media screen and (max-width: 767px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            header {
+                min-height: 100vh;
+            }
+            
+            .header-content {
+                padding: 100px 20px 60px;
+            }
+            
+            .header-logo-left {
+                top: 25px;
+                left: 25px;
+            }
+            
+            .quickclip-logo-text {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+            
+            .header-logo-right {
+                top: 25px;
+                right: 25px;
+            }
+            
+            .logo-honkoma {
+                height: 45px;
+                padding: 8px 15px;
+                max-width: 160px;
+            }
+            
+            h1 {
+                margin-bottom: 20px;
+            }
+            
+            h1::after {
+                bottom: -10px;
+                width: 60px;
+            }
+            
+            .main-content {
+                padding: 60px 0;
+            }
+            
+            .section-container {
+                padding: 0 20px;
+            }
+            
+            section {
+                margin-bottom: 60px;
+            }
+            
+            h2 {
+                font-size: 26px;
+                margin-bottom: 30px;
+                padding-left: 25px;
+            }
+            
+            h2::before {
+                width: 4px;
+                height: 30px;
+            }
+            
+            .problem-boxes {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .problem-box {
+                padding: 30px 25px;
+            }
+            
+            .payment-demo-section {
+                padding: 40px 25px;
+                margin: 40px 0;
+                border-radius: 16px;
+            }
+            
+            .demo-text h3 {
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+            
+            .demo-text p {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+            
+            .demo-features {
+                padding: 25px;
+            }
+            
+            .demo-features li {
+                font-size: 14px;
+                padding: 12px 0;
+            }
+            
+            .demo-phone {
+                max-width: 280px;
+            }
+            
+            .solution-step {
+                padding: 25px 15px;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+                top: -17px;
+            }
+            
+            .solution-step img {
+                aspect-ratio: 1 / 1;
+            }
+            
+            .benefit-item {
+                padding: 30px 25px;
+            }
+            
+            .benefit-item h4 {
+                font-size: 18px;
+            }
+            
+            .benefit-item p {
+                margin-left: 38px;
+            }
+            
+            footer {
+                padding: 60px 0 30px;
+            }
+            
+            .footer-content {
+                padding: 0 20px;
+            }
+            
+            .contact-form-section {
+                padding: 35px 25px;
+                margin: 30px 15px;
+                border-radius: 12px;
+            }
+            
+            .contact-form-section h3 {
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .submit-button {
+                width: 100%;
+                font-size: 16px;
+                padding: 15px 30px;
+            }
+        }
+        
+        /* Small Mobile (375px and below) */
+        @media screen and (max-width: 375px) {
+            h1 {
+                font-size: 28px;
+            }
+            
+            .header-logo-left {
+                top: 20px;
+                left: 20px;
+            }
+            
+            .quickclip-logo-text {
+                font-size: 18px;
+                letter-spacing: 0.8px;
+            }
+            
+            .header-logo-right {
+                top: 20px;
+                right: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            .payment-demo-section {
+                padding: 30px 20px;
+            }
+            
+            .demo-text h3 {
+                font-size: 22px;
+            }
+            
+            .demo-phone {
+                max-width: 250px;
+            }
+            
+            .solution-step img {
+                aspect-ratio: 1 / 1;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 12pt;
+            }
+            
+            body::before {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            header {
+                min-height: auto;
+                background: var(--primary-navy);
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                page-break-after: avoid;
+            }
+            
+            .main-content {
+                padding: 30px 0;
+            }
+            
+            section {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .contact-form-section {
+                display: none;
+            }
+        }
+        
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-navy: #000080;
+                --accent-gold: #FFD700;
+                --text-primary: #000000;
+                --text-secondary: #333333;
+            }
+            
+            .problem-box,
+            .solution-step,
+            .benefit-item,
+            .payment-demo-section {
+                border: 2px solid currentColor;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Header Logos -->
+            <div class="header-logo-left">
+                <span class="quickclip-logo-text">QuickClip</span>
+            </div>
+            
+            <div class="header-logo-right">
+                <img src="images/honkoma_logo.png" alt="honkoma" class="logo-honkoma">
+            </div>
+            
+            <div class="header-content">
+                <h1>一期一会の"旨い"を、一生の"推し"へ。</h1>
+                <p>飲食店での感動体験を、酒蔵の新たなD2Cチャネルに変えるOMOプラットフォーム</p>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <section class="problem">
+                <div class="section-container">
+                    <h2>こんな「もったいない」瞬間、見過ごしていませんか？</h2>
+                    <p class="section-lead">日本酒業界が直面する、2つの大きな機会損失</p>
+                    <div class="problem-boxes">
+                        <div class="problem-box">
+                            <h3>飲食店での、最高の出会い。</h3>
+                            <p>お客様は御社の日本酒に感動しても、銘柄は忘れられ、重い瓶は持ち帰られず、その場限りの関係に終わってしまいます。</p>
+                        </div>
+                        <div class="problem-box">
+                            <h3>複雑な流通、遠いお客様。</h3>
+                            <p>幾重もの中間業者を経て、本当に飲んで欲しい人に直接届けられず、顧客の顔も声も見えない状況が続いています。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="solution">
+                <div class="section-container">
+                    <h2>QuickClipが、そのすべてを解決します。</h2>
+                    <p class="section-lead">飲食店での体験を起点に、酒蔵とお客様を直接つなぐ革新的なソリューション</p>
+                    
+                    <!-- スマートフォン決済デモ -->
+                    <div class="payment-demo-section">
+                        <div class="payment-demo-content">
+                            <div class="demo-text">
+                                <h3>たった5秒で完了する、<br>シンプルな購入体験</h3>
+                                <p>お客様がスマートフォンをかざすだけで、<br>Apple PayやGoogle Payで即座に決済。<br>面倒な会員登録や入力作業は一切不要です。</p>
+                                <ul class="demo-features">
+                                    <li>✓ NFCタグにスマホをかざすだけ</li>
+                                    <li>✓ 会員登録不要で即購入</li>
+                                    <li>✓ 安全な決済システム</li>
+                                    <li>✓ 購入履歴は自動保存</li>
+                                </ul>
+                            </div>
+                            <div class="demo-phone">
+                                <img src="images/payment_demo.png" alt="QuickClip決済画面" class="phone-mockup">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-flow">
+                        <div class="solution-step">
+                            <div class="step-number">1</div>
+                            <img src="images/step1_restaurant.jpg" alt="飲食店での出会い">
+                            <h3>出会いと体験</h3>
+                            <p>飲食店で、お料理と共に最高の状態で提供。顧客は深く味わい、感動します。</p>
+                        </div>
+                        <div class="solution-step">
+                            <div class="step-number">2</div>
+                            <img src="images/step2_quickclip.jpg" alt="QuickClipでの購入">
+                            <h3>感動を、瞬間購入へ</h3>
+                            <p>気に入ったその場で、スマートフォンをかざすだけ。重い瓶を持つことなく、わずか5秒で決済が完了。</p>
+                        </div>
+                        <div class="solution-step">
+                            <div class="step-number">3</div>
+                            <img src="images/step3_delivery.jpg" alt="酒蔵から直送">
+                            <h3>酒蔵と顧客の、新しい繋がり</h3>
+                            <p>注文はリアルタイムで蔵元へ。心を込めて商品を梱包し、お客様の元へ直接お届けします。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="benefits">
+                <div class="section-container">
+                    <h2>QuickClipがもたらす、3つの確実な成果</h2>
+                    <p class="section-lead">導入企業様が実感している、具体的なビジネスインパクト</p>
+                    <div class="benefit-items">
+                        <div class="benefit-item">
+                            <h4>新しいD2C販路の確立</h4>
+                            <p>全国の飲食店が御社のショールームとなり、新たな顧客層に直接リーチ。平均して導入後3ヶ月で新規顧客獲得数が2.5倍に増加しています。</p>
+                        </div>
+                        <div class="benefit-item">
+                            <h4>高い利益率の実現</h4>
+                            <p>中間流通を介さず、価格決定権を維持したまま販売。従来の卸売と比較して、利益率が平均35%向上した実績があります。</p>
+                        </div>
+                        <div class="benefit-item">
+                            <h4>未来に繋がる顧客資産の獲得</h4>
+                            <p>購入者データを直接取得し、リピート購入や新商品案内が可能に。顧客のLTV（生涯価値）が従来比で3.8倍に向上しています。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <h2>新しい日本酒の未来を、共に創造しませんか。</h2>
+                <p class="footer-lead">まずは、御社の素晴らしいお酒について、そして我々がご提供できる具体的なプランについて、お話をお聞かせください。</p>
+                
+                <div class="contact-form-section">
+                    <h3>個別相談会お申し込み</h3>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="company">酒蔵名 <span class="required">*</span></label>
+                                <input type="text" id="company" name="company" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">ご担当者名 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">メールアドレス <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">電話番号 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required placeholder="090-1234-5678">
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message">ご相談内容・ご質問など</label>
+                            <textarea id="message" name="message" rows="4" placeholder="お気軽にご記入ください"></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">相談会に申し込む</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <p>株式会社honkoma | 担当：林 拓海</p>
+                    <p>Email: <a href="mailto:limited.honkomagome@gmail.com">limited.honkomagome@gmail.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Add timestamp
+            data.timestamp = new Date().toISOString();
+            
+            // Log for Google Sheets integration
+            console.log('Form submission:', data);
+            
+            // Show success message with animation
+            const button = event.target.querySelector('.submit-button');
+            const originalText = button.textContent;
+            button.textContent = '送信中...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert('お申し込みありがとうございます。\n林より2営業日以内にご連絡させていただきます。');
+                event.target.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 1000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+        
+        // Parallax effect for header on desktop
+        if (window.innerWidth > 1024) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('header');
+                header.style.transform = `translateY(${scrolled * 0.5}px)`;
+            });
+        }
+    </script>
+</body>
+</html>
