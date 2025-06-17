@@ -1137,11 +1137,16 @@
             }
             
             .pricing-plans {
+                grid-template-columns: 1fr;
                 gap: 25px;
+                padding: 0 15px;
             }
             
             .pricing-plan {
                 padding: 35px 25px;
+                margin: 0 auto;
+                max-width: 400px;
+                width: 100%;
             }
             
             .plan-name {
@@ -1159,6 +1164,11 @@
             .plan-features li {
                 font-size: 14px;
                 padding: 10px 0;
+            }
+            
+            .plan-description {
+                font-size: 15px;
+                line-height: 1.7;
             }
             
             .pricing-footer {
@@ -1238,16 +1248,32 @@
                 aspect-ratio: 1 / 1;
             }
             
+            .pricing {
+                padding: 50px 0;
+            }
+            
             .pricing-title {
                 font-size: 24px;
+                margin-bottom: 30px;
+                padding: 0 20px;
+            }
+            
+            .pricing-plans {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 20px;
             }
             
             .pricing-plan {
                 padding: 30px 20px;
+                margin: 0 auto;
+                max-width: 350px;
+                width: 100%;
             }
             
             .plan-name {
                 font-size: 18px;
+                margin-bottom: 15px;
             }
             
             .free-price {
@@ -1256,6 +1282,67 @@
             
             .partner-price {
                 font-size: 20px;
+            }
+            
+            .plan-description {
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            
+            .plan-features li {
+                font-size: 13px;
+                padding: 8px 0;
+            }
+            
+            .partner-badge {
+                font-size: 12px;
+                padding: 6px 15px;
+                right: 15px;
+                top: 15px;
+            }
+        }
+        
+        /* Extra Small Mobile (480px and below) */
+        @media screen and (max-width: 480px) {
+            .pricing {
+                padding: 40px 0;
+            }
+            
+            .pricing-title {
+                font-size: 22px;
+                padding: 0 15px;
+            }
+            
+            .pricing-plans {
+                padding: 0 15px;
+                gap: 15px;
+            }
+            
+            .pricing-plan {
+                padding: 25px 15px;
+                max-width: 100%;
+            }
+            
+            .plan-name {
+                font-size: 16px;
+            }
+            
+            .free-price {
+                font-size: 45px;
+            }
+            
+            .partner-price {
+                font-size: 18px;
+            }
+            
+            .plan-description {
+                font-size: 13px;
+            }
+            
+            .plan-features li {
+                font-size: 12px;
+                padding: 6px 0;
             }
         }
         
