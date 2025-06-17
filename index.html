@@ -978,6 +978,16 @@
             .benefit-items {
                 grid-template-columns: 1fr;
             }
+            
+            /* Pricing Responsive */
+            .pricing {
+                padding: 80px 0;
+            }
+            
+            .pricing-plans {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
         
         /* Mobile (767px and below) */
@@ -1116,6 +1126,46 @@
                 margin-left: 38px;
             }
             
+            /* Mobile Pricing */
+            .pricing {
+                padding: 60px 0;
+            }
+            
+            .pricing-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .pricing-plans {
+                gap: 25px;
+            }
+            
+            .pricing-plan {
+                padding: 35px 25px;
+            }
+            
+            .plan-name {
+                font-size: 20px;
+            }
+            
+            .free-price {
+                font-size: 60px;
+            }
+            
+            .partner-price {
+                font-size: 22px;
+            }
+            
+            .plan-features li {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+            
+            .pricing-footer {
+                font-size: 16px;
+                margin-top: 40px;
+            }
+            
             footer {
                 padding: 60px 0 30px;
             }
@@ -1187,6 +1237,26 @@
             .solution-step img {
                 aspect-ratio: 1 / 1;
             }
+            
+            .pricing-title {
+                font-size: 24px;
+            }
+            
+            .pricing-plan {
+                padding: 30px 20px;
+            }
+            
+            .plan-name {
+                font-size: 18px;
+            }
+            
+            .free-price {
+                font-size: 50px;
+            }
+            
+            .partner-price {
+                font-size: 20px;
+            }
         }
         
         /* Print Styles */
@@ -1236,6 +1306,186 @@
             }
         }
         
+        /* Pricing Section Styles */
+        .pricing {
+            background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 140%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(212,175,55,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            animation: floatPattern 15s ease-in-out infinite;
+        }
+        
+        .pricing-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pricing-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 600;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 0.06em;
+            position: relative;
+        }
+        
+        .pricing-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+        }
+        
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-plan {
+            background: white;
+            border-radius: 16px;
+            padding: 50px 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            position: relative;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+        }
+        
+        .pricing-plan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-navy) 0%, var(--accent-gold) 100%);
+        }
+        
+        .pricing-plan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+        
+        .plan-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+        
+        .plan-price {
+            margin-bottom: 15px;
+        }
+        
+        .free-price {
+            font-size: 80px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            line-height: 1;
+            text-shadow: 2px 2px 4px rgba(212,175,55,0.3);
+        }
+        
+        .partner-price {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--primary-navy);
+            letter-spacing: 0.02em;
+        }
+        
+        .plan-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+        }
+        
+        .plan-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 0;
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .plan-features li::before {
+            content: '✅';
+            margin-right: 12px;
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .feature-highlight {
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+        
+        .pricing-footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Partner Plan Special Styling */
+        .partner-plan {
+            border: 2px solid var(--accent-gold);
+            position: relative;
+        }
+        
+        .partner-plan::before {
+            background: linear-gradient(90deg, var(--accent-gold) 0%, var(--primary-navy) 100%);
+        }
+        
+        .partner-badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+        }
+        
         /* High Contrast Mode Support */
         @media (prefers-contrast: high) {
             :root {
@@ -1248,7 +1498,8 @@
             .problem-box,
             .solution-step,
             .benefit-item,
-            .payment-demo-section {
+            .payment-demo-section,
+            .pricing-plan {
                 border: 2px solid currentColor;
             }
         }
@@ -1354,6 +1605,56 @@
                             <h4>未来に繋がる顧客資産の獲得</h4>
                             <p>購入者データを直接取得し、リピート購入や新商品案内が可能に。顧客のLTV（生涯価値）が従来比で3.8倍に向上しています。</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="pricing">
+                <div class="section-container">
+                    <div class="pricing-content">
+                        <h2 class="pricing-title">リスクゼロで、新しい成長を。</h2>
+                        
+                        <div class="pricing-plans">
+                            <!-- フリープラン -->
+                            <div class="pricing-plan">
+                                <div class="plan-header">
+                                    <h3 class="plan-name">フリープラン</h3>
+                                    <div class="plan-price">
+                                        <span class="free-price">¥0</span>
+                                    </div>
+                                    <p class="plan-description">まずはQuickClipの価値を、リスクなくご体験ください。</p>
+                                </div>
+                                
+                                <ul class="plan-features">
+                                    <li><strong>初期費用・月額費用</strong></li>
+                                    <li>QRコード発行機能</li>
+                                    <li>基本的な売上分析</li>
+                                    <li>取引手数料：お問い合わせください</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- パートナープラン -->
+                            <div class="pricing-plan partner-plan">
+                                <div class="partner-badge">おすすめ</div>
+                                <div class="plan-header">
+                                    <h3 class="plan-name">パートナープラン</h3>
+                                    <div class="plan-price">
+                                        <span class="partner-price">お問い合わせください</span>
+                                    </div>
+                                    <p class="plan-description">LTV向上と事業成長を加速させる、全ての機能をご利用いただけます。</p>
+                                </div>
+                                
+                                <ul class="plan-features">
+                                    <li><strong>フリープランの全機能</strong></li>
+                                    <li class="feature-highlight"><strong>フルアプリ連携によるCRM・補充経済機能</strong></li>
+                                    <li>高度なデータ分析とインサイト提供</li>
+                                    <li>導入・活用コンサルティング</li>
+                                    <li class="feature-highlight"><strong>B2Bマッチングプラットフォームへの優先参加権</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p class="pricing-footer">QuickClipは、御社の負担を最小限に、成果を最大化するパートナーです。</p>
                     </div>
                 </div>
             </section>
